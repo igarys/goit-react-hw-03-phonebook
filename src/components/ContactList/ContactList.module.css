@@ -1,0 +1,9 @@
+.Button {
+    margin-left: 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.Button:hover {
+background-color: red;
+}
