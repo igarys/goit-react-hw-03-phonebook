@@ -16,12 +16,21 @@ export class App extends Component {
     )
       ? alert(`${name} is already in your phonebook.`)
       : this.setState(prevState => ({
-          contacts: [
-            { id: nanoid(), name: name, number: number },
-            ...prevState.contacts,
-          ],
-        }));
+        contacts: [
+          { id: nanoid(), name: name, number: number },
+          ...prevState.contacts,
+        ],
+      }))
   };
+  componentDidMount() {
+    const savedContacts = localStorage.getItem('contact')
+    const contact = JSON.parse(savedContacts)
+    this.setState(() => ({contact}))
+  }
+  componentDidUpdate() {
+    const savedContacts = JSON.stringify(this.state.contacts);
+    localStorage.setItem('contact', savedContacts)
+  }
 
   searchInput = e => {
     this.setState({ filter: e.target.value });
