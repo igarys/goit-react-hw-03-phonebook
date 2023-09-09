@@ -24,12 +24,15 @@ export class App extends Component {
   };
   componentDidMount() {
     const getSavedContacts = JSON.parse(localStorage.getItem('contact'));
-    this.setState(() => ({ contacts: getSavedContacts }));
+    if (getSavedContacts) {
+      this.setState(() => ({ contacts: getSavedContacts }));
+    }
   }
-  componentDidUpdate() {
-    const savedContacts = JSON.stringify(this.state.contacts);
-    localStorage.setItem('contact', savedContacts);
-    
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState !== this.state.contacts) {
+      const savedContacts = JSON.stringify(this.state.contacts);
+      localStorage.setItem('contact', savedContacts);
+    }
   }
 
   searchInput = e => {
